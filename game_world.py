@@ -52,9 +52,9 @@ def add_collision_pair(group, a, b):
 
 def handle_collision():
     for group, pairs in collision_pairs.items():
-        for a in pairs[0]:
-            for b in pairs[1]:
-                if collide(a, b):
+        for a in pairs[0][:]:
+            for b in pairs[1][:]:
+                if a in pairs[0] and b in pairs[1] and collide(a, b):
                     a.handle_collision(group, b)
                     b.handle_collision(group, a)
 
