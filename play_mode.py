@@ -7,6 +7,8 @@ from ball import Ball
 from zombie import Zombie
 import random
 
+import zombie
+
 boy = None
 balls = []
 
