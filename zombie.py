@@ -31,10 +31,10 @@ class Zombie:
 
     def __init__(self):
         self.load_images()
-        self.x, self.y = random.randint(MIN_X, MAX_X), 100
+        self.x, self.y = random.randint(MIN_X, MAX_X), 150
         self.frame = random.randint(0, 9)
         self.dir = random.choice([-1, 1])
-        self.size = 100
+        self.size = 200
         self.hit_count = 0
 
     def update(self):
@@ -62,5 +62,8 @@ class Zombie:
     def handle_collision(self, group, other):
         if group == 'zombie:ball' and not other.stopped:
             self.hit_count += 1
-            if self.hit_count >= 2:
+            if self.hit_count == 1:
+                self.size = 100
+                self.y -= 50
+            elif self.hit_count >= 2:
                 game_world.remove_object(self)
