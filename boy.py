@@ -99,6 +99,7 @@ class Boy:
         self.dir = 0
         self.face_dir = 1
         self.pressed_keys = set()
+        self.game_over = False
         self.item = 'Ball'
         self.ball_count = 10
 
@@ -189,3 +190,6 @@ class Boy:
 
             self.ball_count += 1
             game_world.remove_object(other)
+        elif group == 'boy:zombie':
+            self.game_over = True
+            self.pause()
