@@ -1,24 +1,23 @@
 import random
-from tokenize import group
 
 from pico2d import load_image, draw_rectangle, clamp
 
 import game_framework
 import game_world
 
-# 좀비 달리기 속력: km/h -> 픽셀/초
-PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
-RUN_SPEED_KMPH = 10.0  # Km / Hour
+
+PIXEL_PER_METER = (10.0 / 0.3)
+RUN_SPEED_KMPH = 10.0
 RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
-# 좀비 애니메이션 속도: 0.5초에 10프레임
+
 TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 10
 
-MIN_X, MAX_X = 800, 1600  # 좀비가 오가는 구간
+MIN_X, MAX_X = 800, 1600
 
 
 class Zombie:
@@ -35,6 +34,8 @@ class Zombie:
         self.x, self.y = random.randint(MIN_X, MAX_X), 150
         self.frame = random.randint(0, 9)
         self.dir = random.choice([-1, 1])
+        self.size = 200
+        self.hit_count = 0
 
     def update(self):
         dt = game_framework.frame_time
@@ -59,4 +60,6 @@ class Zombie:
 
     def handle_collision(self, group, other):
         if group == 'zombie:ball':
-            self.ball_count -= 1
+            self.hit_count += 1
+            if self.hit_count >= 2:
+                game_world.remove_object(self)

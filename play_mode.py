@@ -7,7 +7,6 @@ from ball import Ball
 from zombie import Zombie
 import random
 
-import zombie
 
 boy = None
 balls = []
@@ -33,7 +32,6 @@ def init():
     boy = Boy()
 
 
-
     global grass
     grass = Grass()
 
@@ -46,13 +44,12 @@ def init():
     game_world.add_oject(boy)
     game_world.add_oject(grass, 0)
 
-    # 소년과 볼 사이의 충돌 페어를 등록
+
     game_world.add_collision_pair("boy:ball", boy, None)
     game_world.add_collision_pair("ball:grass", None, grass)
     for ball in balls:
         game_world.add_collision_pair("boy:ball", None, ball)
         game_world.add_collision_pair("ball:grass", ball, None)
-
 
 
 def pause():
@@ -77,18 +74,7 @@ def update():
             balls.remove(ball)
 
 
-
-
 def render():
     clear_canvas()
     game_world.render()
     update_canvas()
-
-
-
-
-
-
-
-
-

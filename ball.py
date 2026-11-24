@@ -3,10 +3,10 @@ from pico2d import draw_rectangle, get_canvas_width, load_image
 import game_world
 import game_framework
 
-# 단위: 픽셀, 초
+
 LAUNCH_SPEED_X = 300.0
 LAUNCH_SPEED_Y = 300.0
-GRAVITY = 9.8 * (10.0 / 0.3)  # 9.8 m/s²를 픽셀/s²로 변환
+GRAVITY = 9.8 * (10.0 / 0.3)
 
 
 class Ball:
@@ -21,7 +21,7 @@ class Ball:
         self.velocity_x = direction * LAUNCH_SPEED_X
         self.velocity_y = LAUNCH_SPEED_Y
         self.radius = 10.5 if ball_type == 1 else 20.5
-        self.stopped = (direction == 0)  # direction 이 0이면 바닥에 놓인 공
+        self.stopped = (direction == 0)
 
     def update(self):
         if self.stopped:

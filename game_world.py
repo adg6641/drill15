@@ -1,4 +1,4 @@
-world = [[], [], []]  # 0: 배경, 1: 오브젝트, 2: UI
+world = [[], [], []]
 
 def add_oject(o, depth=1):
     world[depth].append(o)
@@ -40,10 +40,10 @@ def collide(a, b):
 
     return True
 
-collision_pairs = {} # object a, b의 충돌 페어를 등록하는 딕셔너리
+collision_pairs = {}
 
 def add_collision_pair(group, a, b):
-    if group not in collision_pairs: # group 이름이 없으면 새로생성
+    if group not in collision_pairs:
         collision_pairs[group] = ([], [])
     if a:
         collision_pairs[group][0].append(a)

@@ -11,24 +11,17 @@ from ball import Ball
 
 import game_framework
 
-# 달리기 속력을 시속 km에서 초속 m, 다시 초당 픽셀로 변환한다.
-PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
-RUN_SPEED_KMPH = 20.0  # Km / Hour
+
+PIXEL_PER_METER = (10.0 / 0.3)
+RUN_SPEED_KMPH = 20.0
 RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
-# 한 보폭은 0.8m이고, 달리기 애니메이션 5프레임이 한 보폭에 해당한다.
-# 7km/h = 7000 / 3600 = 약 1.944m/s
-# 한 보폭에 걸리는 시간 = 0.8 / 1.944 = 약 0.411초
-# 한 프레임의 지속시간 = 0.411 / 5 = 약 0.082초
-# 초당 프레임 수 = (초속 / 보폭) * 보폭당 프레임 수 = 약 12.15
-STRIDE_LENGTH_M = 1.5  # 보폭 길이
-RUN_FRAMES_PER_STRIDE = 5 # 1개 보폭에 대한 애니메이션 프레임 수
-RUN_FRAMES_PER_SECOND = RUN_SPEED_MPS / STRIDE_LENGTH_M * RUN_FRAMES_PER_STRIDE # 프레임 증가 속도, 즉 1초당 몇개 프레임을 증가시켜야 하는가? 
 
-
-
+STRIDE_LENGTH_M = 1.5
+RUN_FRAMES_PER_STRIDE = 5
+RUN_FRAMES_PER_SECOND = RUN_SPEED_MPS / STRIDE_LENGTH_M * RUN_FRAMES_PER_STRIDE
 
 
 class Idle:
@@ -86,7 +79,7 @@ class Run:
 
     def draw(self, boy):
         row = 100 if boy.face_dir == 1 else 0
-        # 그림을 선택할 때만 소수 부분을 버린다.
+
         boy.image.clip_draw(int(boy.frame) * 100, row, 100, 100, boy.x, boy.y)
 
     def space(self, boy):
@@ -107,7 +100,7 @@ class Boy:
         self.face_dir = 1
         self.pressed_keys = set()
         self.item = 'Ball'
-        self.ball_count = 10  # 가지고 있는 공의 개수
+        self.ball_count = 10
 
         self.states = {'IDLE': Idle(), 'SLEEP': Sleep(), 'RUN': Run()}
 
@@ -185,13 +178,13 @@ class Boy:
         self.font.draw(self.x - 10, self.y + 50, f'{self.ball_count:02d}', (255, 255, 0))
         draw_rectangle(*self.get_bb())
 
-    # 소년의 충돌영역 계산
+
     def get_bb(self):
         return self.x - 20, self.y - 50, self.x + 20, self.y + 50
 
     def handle_collision(self, group, other):
-        # 충돌 그룹 이름이 "boy:ball"이면 소년이 공과 충돌한 경우
+
         if group == 'boy:ball':
-            # 소년이 공과 충돌했을 때의 처리
+
             self.ball_count += 1
             game_world.remove_object(other)
