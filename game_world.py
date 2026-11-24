@@ -27,6 +27,7 @@ def render():
 def clear():
     for layer in world:
         layer.clear()
+    collision_pairs.clear()
 
 
 def collide(a, b):
